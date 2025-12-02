@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Provider(ABC):
 
     @staticmethod
@@ -14,4 +15,3 @@ class Provider(ABC):
     @abstractmethod
     def get_url(self) -> str:
         pass
-    
