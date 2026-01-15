@@ -3,10 +3,8 @@ from abc import ABC, abstractmethod
 
 class Provider(ABC):
 
-    @staticmethod
-    @abstractmethod
-    def domain() -> str:
-        pass
+    domain: str
+    headers: dict
 
     @abstractmethod
     def get_mediainfo(self) -> tuple[dict, list]:

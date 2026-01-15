@@ -15,6 +15,15 @@ CHAPTER_URL = "https://flamecomics.xyz/series/{id}/{token}"
 
 class FlameComics(Provider):
 
+    domain = "flamecomics.xyz"
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        )
+    }
+
     def __init__(self, session: requests.Session, url) -> None:
         self.s = session
         self.id = self.parse_url(url)
@@ -50,7 +59,7 @@ class FlameComics(Provider):
     def parse_chapters(self, payload: list[dict]) -> list[dict]:
         chapters = list()
         for c in payload:
-            nbr = int(float(c.get("chapter", 0.0)))
+            nbr = float(c.get("chapter", 0.0))
             title = c.get("title")
             if not title:
                 title = f"Chapter {nbr}"
@@ -88,7 +97,3 @@ class FlameComics(Provider):
 
     def get_url(self) -> str:
         return INFO_URL.format(id=self.id)
-
-    @staticmethod
-    def domain() -> str:
-        return "flamecomics.xyz"
