@@ -44,7 +44,9 @@ class Mangapill(Provider):
 
     @staticmethod
     def parse_info(payload: bs) -> dict:
-        title_elem = payload.select_one("h1.font-bold")
+        title_elem = payload.select_one("div.text-sm.text-secondary")
+        if not title_elem:
+            title_elem = payload.select_one("h1.font-bold")
         title = title_elem.get_text(strip=True) if title_elem else "Unknown Title"
         desc_p = payload.select_one("p.text-sm.text--secondary")
         description = None
